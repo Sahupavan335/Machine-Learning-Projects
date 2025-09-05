@@ -54,8 +54,14 @@ if st.button("Predict"):
     pred_prob = loaded_model.predict_proba(input_data_df)
 
     st.subheader("Prediction Result")
-    st.write(f"Predicted Class: **{prediction[0]}**")
+    if prediction[0] == 0:
+        st.write("The customer is **not likely to churn**.")
+    else:
+        st.write("The customer is **likely to churn**.")
 
     st.subheader("Prediction Probabilities")
     for i, prob in enumerate(pred_prob.flatten()):
-        st.write(f"Class {i}: {(prob)*100:.1f}%")
+        if i == 0:
+            st.write(f"Probability of **Not Churn** : {(prob)*100:.1f}%")
+        else:
+            st.write(f"Probability of **Churn** : {(prob)*100:.1f}%")
